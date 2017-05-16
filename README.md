@@ -1,0 +1,1 @@
+# contao-isotope-mediamanager-tinypng
