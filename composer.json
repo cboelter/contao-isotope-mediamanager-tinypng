@@ -1,0 +1,49 @@
+{
+  "name": "cboelter/contao-isotope-mediamanager-tinypng",
+  "description": "Use tinyPNG for attribute mediaManager for IsotopeEcommerce extension for Contao.",
+  "keywords": [
+    "contao",
+    "isotope",
+    "ecommerce",
+    "listwizard",
+    "mediaManager",
+    "tinypng"
+  ],
+  "type": "contao-module",
+  "homepage": "https://boelter.eu",
+  "license": "LGPL-3.0+",
+  "authors": [
+    {
+      "name": "Christopher Bölter",
+      "email": "christopher@boelter.eu",
+      "homepage": "http://boelter.eu",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "source": "https://github.com/cboelter/contao-isotope-mediamanager-tinypng"
+  },
+  "require": {
+    "php": ">=5.6",
+    "contao/core": ">=3.5,<3.6-dev",
+    "contao-community-alliance/composer-plugin": "~2",
+    "isotope/isotope-core": "~2.4",
+    "tinify/tinify": "~1.5"
+  },
+  "autoload": {
+    "psr-0": {
+      "Boelter\\Isotope\\": "src"
+    }
+  },
+  "extra": {
+    "contao": {
+      "sources": {
+        "contao-module": "system/modules/isotope-mediamanager-tinypng"
+      }
+    },
+    "branch-alias": {
+      "dev-develop": "1.0.x-dev"
+    }
+  },
+  "minimum-stability": "dev"
+}
