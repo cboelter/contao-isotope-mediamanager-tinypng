@@ -1,0 +1,34 @@
+<div id="tl_maintenance_iso_tinypng_migrate" style="margin-bottom: 50px;" class="maintenance_<?php echo $this->isActive ? 'active' : 'inactive' ?>">
+
+    <h2 class="sub_headline"><?php echo $GLOBALS['TL_LANG']['tl_maintenance']['iso_tinypng_migrate']['headline']; ?></h2>
+
+
+    <?php if ($this->isActive): ?>
+    <div class="tl_message" style="margin-bottom: 20px;">
+        <p class="tl_info"><?php echo $this->message; ?></p>
+    </div>
+
+    <?php foreach($this->messages as $migrationMessage): ?>
+    <div class="tl_message" style="margin-bottom: -15px;">
+        <p class="tl_<?php echo $migrationMessage['type']; ?>"><?php echo $migrationMessage['message']; ?></p>
+    </div>
+    <?php endforeach; ?>
+
+    <?php else: ?>
+    <form action="<?php echo $this->action ?>" class="tl_form" method="get">
+        <div class="tl_formbody_edit">
+            <input type="hidden" name="act" value="iso_tinypng_migrate">
+            <input type="hidden" name="do" value="maintenance">
+            <input type="hidden" name="rt" value="<?php echo REQUEST_TOKEN ?>">
+        </div>
+        <div class="tl_message" style="padding-bottom: 24px">
+            <p><?php echo $GLOBALS['TL_LANG']['tl_maintenance']['iso_tinypng_migrate']['info']; ?></p>
+        </div>
+        <div class="tl_submit_container">
+            <input type="submit" id="iso_tinypng_migrate" class="tl_submit" value="<?php echo $GLOBALS['TL_LANG']['tl_maintenance']['iso_tinypng_migrate']['migration_start']; ?>">
+        </div>
+    </form>
+
+    <?php endif ?>
+
+</div>
