@@ -29,7 +29,8 @@
     "contao-community-alliance/composer-plugin": "~2",
     "isotope/isotope-core": "~2.4",
     "tinify/tinify": "~1.5",
-    "symfony/finder": "~3"
+    "symfony/finder": "~3",
+    "contao-community-alliance/url-builder": "~1.2"
   },
   "autoload": {
     "psr-0": {
