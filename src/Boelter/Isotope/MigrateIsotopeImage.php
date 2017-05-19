@@ -2,6 +2,7 @@
 
 namespace Boelter\Isotope;
 
+use ContaoCommunityAlliance\UrlBuilder\UrlBuilder;
 use Symfony\Component\Finder\Finder;
 
 class MigrateIsotopeImage extends \Backend implements \executable
@@ -44,10 +45,21 @@ class MigrateIsotopeImage extends \Backend implements \executable
                 return;
             }
 
-            $migration = 0;
-            $messages  = array();
+            $migration    = 0;
+            $messages     = array();
+            $stepSize     = 10;
+            $currentStep  = (int)\Input::get('currentStep') ?: 0;
+            $currentCount = 0;
+            $stepStart    = $currentStep * $stepSize;
+            $stepLimit    = $stepStart + $stepSize;
+            $maxStep      = (ceil($finder->count() / $stepSize) - 1);
 
             foreach ($finder as $file) {
+                if ($currentCount < $stepStart) {
+                    $currentCount++;
+                    continue;
+                }
+
                 $source = \Tinify\fromFile($file->getRealPath());
                 if ($source->toFile($file->getRealPath())) {
                     $migration++;
@@ -69,13 +81,26 @@ class MigrateIsotopeImage extends \Backend implements \executable
                             ),
                         );
                 }
+
+                $currentCount++;
+
+                if ($stepLimit == $currentCount && $currentStep < $maxStep) {
+                    $urlBuilder = new UrlBuilder(\Environment::get('request'));
+                    $urlBuilder->unsetQueryParameter('currentStep');
+                    $urlBuilder->insertQueryParameter('currentStep', $currentStep + 1, 0);
+                    $objTemplate->redirectUrl = $urlBuilder->getUrl();
+                    break;
+                } elseif ($stepLimit == $currentCount && $currentStep == $maxStep) {
+                    break;
+                }
             }
 
-            $objTemplate->message  = sprintf(
+            $objTemplate->message = sprintf(
                 $GLOBALS['TL_LANG']['tl_maintenance']['iso_tinypng_migrate']['message'],
-                $migration,
+                $stepSize * ($currentStep + 1),
                 $finder->count()
             );
+
             $objTemplate->messages = $messages;
         }
 

@@ -14,6 +14,12 @@
     </div>
     <?php endforeach; ?>
 
+    <?php if($this->redirectUrl): ?>
+    <div style="margin-top: 40px; text-align: center;">
+    <script>setTimeout('window.location="<?php echo $this->redirectUrl; ?>"',2000)</script>
+    <a href="<?php echo $this->redirectUrl; ?>">Please click here to proceed if you are not using JavaScript</a>
+    </div>
+    <?php endif; ?>
     <?php else: ?>
     <form action="<?php echo $this->action ?>" class="tl_form" method="get">
         <div class="tl_formbody_edit">
